@@ -9,17 +9,26 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/nextjs": "^4.29.10",
+    "@radix-ui/react-slot": "^1.0.2",
     "@types/node": "20.12.3",
     "@types/react": "18.2.74",
     "@types/react-dom": "18.2.23",
-    "autoprefixer": "10.4.19",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
     "eslint": "8.57.0",
-    "eslint-config-next": "14.1.4",
-    "next": "14.1.4",
-    "postcss": "8.4.38",
+    "eslint-config-next": "13.4.12",
+    "lucide-react": "^0.364.0",
+    "next": "13.4.12",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "tailwindcss": "3.4.3",
+    "tailwind-merge": "^2.2.2",
+    "tailwindcss-animate": "^1.0.7",
     "typescript": "5.4.3"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3"
   }
 }
