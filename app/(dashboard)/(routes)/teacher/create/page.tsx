@@ -19,6 +19,7 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   title: z.string().min(1, { message: "title is required" }),
@@ -32,11 +33,14 @@ const Create = () => {
     },
   });
 
+  const router = useRouter();
+
   const { isValid, isSubmitting } = form.formState;
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       const res = await axios.post("/api/courses", values);
+      router.push(`/teacher/courses/${res.data.id}`);
       toast.success("Course created");
     } catch (error) {
       toast.error("Course create error");
