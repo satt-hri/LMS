@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
@@ -18,6 +18,7 @@ export async function POST(req: NextRequest) {
 
     return Response.json(course);
   } catch (error) {
+    console.log("Course post  error",error)
     return new Response("Course post  error", { status: 500 });
   }
 }
