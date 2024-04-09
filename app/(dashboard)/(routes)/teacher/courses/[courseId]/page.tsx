@@ -4,6 +4,7 @@ import { LayoutDashboard } from "lucide-react";
 import { redirect } from "next/navigation";
 import TitleFrom from "./_compontents/title-form";
 import DescriptionForm from "./_compontents/description-form";
+import ImageForm from "./_compontents/image-form";
 
 const CouresIdPage = async ({ params }: { params: { courseId: string } }) => {
   const course = await db.course.findUnique({
@@ -32,6 +33,7 @@ const CouresIdPage = async ({ params }: { params: { courseId: string } }) => {
           </div>
           <TitleFrom courseId={params.courseId} initialData={course} />
           <DescriptionForm courseId={params.courseId} initialData={course} />
+          <ImageForm courseId={params.courseId} initialData={course} />
         </div>
       </div>
     </div>
