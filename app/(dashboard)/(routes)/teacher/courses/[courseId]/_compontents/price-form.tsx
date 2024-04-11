@@ -20,22 +20,24 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
+import { cn } from "@/lib/utils";
+import { formatPrice } from "@/lib/format";
 
-interface TitleFormProps {
+interface PriceFormProps {
   initialData: Course;
   courseId: string;
 }
 
 const formSchema = z.object({
-  title: z.string().min(1, {
-    message: "title is  required",
-  }),
+  price: z.coerce.number(),
 });
 
-const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
+const PriceForm = ({ initialData, courseId }: PriceFormProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: { title: initialData.title },
+    defaultValues: {
+      price: initialData.price || undefined,
+    },
   });
   const { isValid, isSubmitting } = form.formState;
 
@@ -57,19 +59,28 @@ const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
   return (
     <div className="mt-6 border bg-slate-100  rounded-md p-4">
       <div className="flex items-center justify-between font-medium">
-        Course title
+        Course price
         <Button variant={"ghost"} onClick={toggle}>
           {isEditing ? (
             <>Cancel</>
           ) : (
             <>
               <Pencil className="w-4 h-4 mr-4" />
-              Edit title
+              Edit price
             </>
           )}
         </Button>
       </div>
-      {!isEditing && <p className="text-sm mt-2">{initialData.title}</p>}
+      {!isEditing && (
+        <p
+          className={cn(
+            "text-sm mt-2",
+            !initialData.price && "text-slate-500 italic"
+          )}
+        >
+          {initialData.price ? formatPrice(initialData.price) : "No price"}
+        </p>
+      )}
       {isEditing && (
         <Form {...form}>
           <form
@@ -78,11 +89,17 @@ const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
           >
             <FormField
               control={form.control}
-              name="title"
+              name="price"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input disabled={isSubmitting} {...field}></Input>
+                    <Input
+                      disabled={isSubmitting}
+                      {...field}
+                      type="number"
+                      step={"0.01"}
+                      placeholder="set your price"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -98,4 +115,4 @@ const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
   );
 };
 
-export default TitleForm;
+export default PriceForm;

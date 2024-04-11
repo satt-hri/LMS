@@ -57,7 +57,7 @@ const CategoryForm = ({
       toggle();
       router.refresh();
     } catch (error) {
-      toast.error("category can not update");
+      toast.error("descrition can not update");
     }
   }
 
