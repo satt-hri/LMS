@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import TitleFrom from "./_compontents/title-form";
 import DescriptionForm from "./_compontents/description-form";
 import ImageForm from "./_compontents/image-form";
+import CategoryForm from "./_compontents/category-form";
 
 const CouresIdPage = async ({ params }: { params: { courseId: string } }) => {
   const course = await db.course.findUnique({
@@ -12,9 +13,17 @@ const CouresIdPage = async ({ params }: { params: { courseId: string } }) => {
       id: params.courseId,
     },
   });
+
   if (!course) {
     redirect("/");
   }
+
+  const categroy = await db.category.findMany({
+    orderBy: {
+      name: "asc",
+    },
+  });
+
   return (
     <div className="p-6">
       <div className="flex items-center justify-between">
@@ -34,6 +43,14 @@ const CouresIdPage = async ({ params }: { params: { courseId: string } }) => {
           <TitleFrom courseId={params.courseId} initialData={course} />
           <DescriptionForm courseId={params.courseId} initialData={course} />
           <ImageForm courseId={params.courseId} initialData={course} />
+          <CategoryForm
+            courseId={params.courseId}
+            initialData={course}
+            options={categroy.map((item) => ({
+              label: item.name,
+              value: item.id,
+            }))}
+          />
         </div>
       </div>
     </div>
