@@ -1,17 +1,30 @@
 import { IconBadge } from "@/components/icon-badge";
 import { db } from "@/lib/db";
-import { CircleDollarSign, LayoutDashboard, ListChecks } from "lucide-react";
+import {
+  CircleDollarSign,
+  File,
+  LayoutDashboard,
+  ListChecks,
+} from "lucide-react";
 import { redirect } from "next/navigation";
 import TitleFrom from "./_compontents/title-form";
 import DescriptionForm from "./_compontents/description-form";
 import ImageForm from "./_compontents/image-form";
 import CategoryForm from "./_compontents/category-form";
 import PriceForm from "./_compontents/price-form";
+import AttachmentForm from "./_compontents/attachment-form";
 
 const CouresIdPage = async ({ params }: { params: { courseId: string } }) => {
   const course = await db.course.findUnique({
     where: {
       id: params.courseId,
+    },
+    include: {
+      attachments: {
+        orderBy:{
+          createdAt:"desc"
+        }
+      },
     },
   });
 
@@ -67,6 +80,13 @@ const CouresIdPage = async ({ params }: { params: { courseId: string } }) => {
               <h2 className="text-xl">Sell your course</h2>
             </div>
             <PriceForm courseId={params.courseId} initialData={course} />
+          </div>
+          <div>
+            <div className="flex items-center gap-x-2">
+              <IconBadge icon={File} />
+              <h2>Resources & Attachments</h2>
+            </div>
+            <AttachmentForm courseId={params.courseId} initialData={course} />
           </div>
         </div>
       </div>
