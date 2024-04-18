@@ -13,23 +13,36 @@ import ImageForm from "./_compontents/image-form";
 import CategoryForm from "./_compontents/category-form";
 import PriceForm from "./_compontents/price-form";
 import AttachmentForm from "./_compontents/attachment-form";
+import { auth } from "@clerk/nextjs";
+import ChapterForm from "./_compontents/chapter-form";
 
 const CouresIdPage = async ({ params }: { params: { courseId: string } }) => {
+  const { userId } = auth();
+  if (!userId) {
+    return redirect("/");
+  }
+
   const course = await db.course.findUnique({
     where: {
       id: params.courseId,
+      userId
     },
     include: {
+      chapters: {
+        orderBy: {
+          position: "asc",
+        },
+      },
       attachments: {
-        orderBy:{
-          createdAt:"desc"
-        }
+        orderBy: {
+          createdAt: "desc",
+        },
       },
     },
   });
 
   if (!course) {
-    redirect("/");
+    return redirect("/");
   }
 
   const categroy = await db.category.findMany({
@@ -38,13 +51,26 @@ const CouresIdPage = async ({ params }: { params: { courseId: string } }) => {
     },
   });
 
+
+  const requiredFields =[
+    course.title,
+    course.description,
+    course.imageUrl,
+    course.price,
+    course.categoryId
+  ]
+
+  const totalFields = requiredFields.length;
+  const completedFileds = requiredFields.filter(Boolean).length
+  const complettionText = `(${completedFileds}/${totalFields})`
+
   return (
     <div className="p-6">
       <div className="flex items-center justify-between">
         <div className="flex flex-col gap-y-2">
           <h1 className="text-2xl font-medium">Course setup</h1>
           <span className="text-sm text-slate-700">
-            Complete all fields(1/5)
+            Complete all fields {complettionText}
           </span>
         </div>
       </div>
@@ -72,7 +98,7 @@ const CouresIdPage = async ({ params }: { params: { courseId: string } }) => {
               <IconBadge icon={ListChecks} />
               <h2 className="text-xl">Coures chapters</h2>
             </div>
-            <div>TODO:Chapters</div>
+            <ChapterForm courseId={params.courseId} initialData={course} />
           </div>
           <div>
             <div className="flex items-center gap-x-2">

@@ -67,14 +67,9 @@ const AttachmentForm = ({ initialData, courseId }: AttachmentFormProps) => {
         Course attachment
         <Button variant={"ghost"} onClick={toggle}>
           {isEditing && <>Cancel</>}
-          {!isEditing && !initialData.imageUrl && (
+          {!isEditing && (
             <>
               <PlusCircle className="w-4 h-4 mr-2" /> Add an attachment
-            </>
-          )}
-          {!isEditing && initialData.imageUrl && (
-            <>
-              <Pencil className="w-4 h-4 mr-2" /> Edit attachment
             </>
           )}
         </Button>

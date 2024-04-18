@@ -1,6 +1,8 @@
+
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
+import { UTApi } from "uploadthing/server";
 
 export async function DELETE(
   req: Request,
@@ -28,6 +30,12 @@ export async function DELETE(
         id:params.attachmentId
       }
     })
+
+    //ファイルの削除
+    const  utapi = new UTApi();
+    await utapi.deleteFiles(attachment.name)
+
+
     return NextResponse.json(attachment)
 
   } catch (error) {
