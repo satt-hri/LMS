@@ -71,13 +71,7 @@ const ChapterForm = ({ initialData, courseId }: ChapterFormProps) => {
   };
 
   const onEdit = async (id: string) => {
-    try {
-      setIsUpdating(true);
-      await axios.put(`/api/courses/${courseId}/chapters/reorder`);
-    } catch (error) {
-    } finally {
-      setIsUpdating(false);
-    }
+    router.push(`/teacher/courses/${courseId}/chapters/${id}`)
   };
 
   const [isCreating, setIsCreating] = useState(false);
