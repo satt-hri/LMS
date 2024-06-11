@@ -9,12 +9,15 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+
+import { ChapterList } from "./chapter-list";
+
 /**
  * ないとuseFormを使えない
  */
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { PlusCircle } from "lucide-react";
+import { Loader2, PlusCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Chapter, Course } from "prisma/prisma-client";
 import { useState } from "react";
@@ -50,11 +53,44 @@ const ChapterForm = ({ initialData, courseId }: ChapterFormProps) => {
       toast.error("chapter is not create");
     }
   }
+
+  const onReorder = async (updateData: { id: string; position: number }[]) => {
+    try {
+      setIsUpdating(true);
+      await axios.put(`/api/courses/${courseId}/chapters/reorder`, {
+        list: updateData,
+      });
+      toast.success("chapter reorder success");
+      debugger
+      router.refresh();
+    } catch (error) {
+      toast.error("chapter reorder error");
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
+  const onEdit = async (id: string) => {
+    try {
+      setIsUpdating(true);
+      await axios.put(`/api/courses/${courseId}/chapters/reorder`);
+    } catch (error) {
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
   const [isCreating, setIsCreating] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
   const toggle = () => setIsCreating((current) => !current);
   return (
-    <div className="mt-6 border bg-slate-100  rounded-md p-4">
+    <div className="mt-6 border bg-slate-100  rounded-md p-4 relative">
+      {isUpdating && (
+        <div className="absolute h-full w-full flex items-center justify-center bg-slate-500/20 top-0 left-0 rounded-md">
+          <Loader2 className="h-6 w-6 text-sky-700 animate-spin" />
+        </div>
+      )}
       <div className="flex items-center justify-between font-medium">
         Course chapters
         <Button variant={"ghost"} onClick={toggle}>
@@ -98,11 +134,16 @@ const ChapterForm = ({ initialData, courseId }: ChapterFormProps) => {
           )}
         >
           {!initialData.chapters.length && "No chapters"}
+          <ChapterList
+            items={initialData.chapters || []}
+            onReorder={onReorder}
+            onEdit={onEdit}
+          />
         </div>
       )}
       {!isCreating && (
         <p className="text-xs text-muted-foreground mt-4">
-          Drag and drop to reorder the cha
+          Drag and drop to reorder the chapters
         </p>
       )}
     </div>
