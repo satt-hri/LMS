@@ -61,7 +61,7 @@ const ChapterForm = ({ initialData, courseId }: ChapterFormProps) => {
         list: updateData,
       });
       toast.success("chapter reorder success");
-      debugger
+      //debugger
       router.refresh();
     } catch (error) {
       toast.error("chapter reorder error");
