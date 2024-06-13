@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 import ChapterTitleForm from "./_compontents/chapter-title-form";
 import ChapterDescriptionForm from "./_compontents/chapter-description-form";
 import ChapterAccessForm from "./_compontents/chapter-access-form";
+import ChapterVideoForm from "./_compontents/chapter-video-form";
 
 type Props = {
   params: {
@@ -24,6 +25,9 @@ const ChapterIdPage = async ({ params }: Props) => {
       id: params.chapterId,
       courseId: params.courseId,
     },
+    include:{
+      muxData:true
+    }
   });
   if (!chapter) {
     return redirect("/");
@@ -91,9 +95,9 @@ const ChapterIdPage = async ({ params }: Props) => {
             <IconBadge icon={Video} />
             <h2 className="text-xl">Add a video</h2>
           </div>
+          <ChapterVideoForm initialData={chapter} courseId={params.courseId} />
         </div>
       </div>
-      
     </div>
   );
 };
