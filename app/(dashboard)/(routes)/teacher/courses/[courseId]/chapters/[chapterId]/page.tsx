@@ -5,6 +5,7 @@ import { ArrowLeft, LayoutDashboard } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import ChapterTitleForm from "./_compontents/chapter-title-form";
+import ChapterDescriptionForm from "./_compontents/chapter-description-form";
 
 type Props = {
   params: {
@@ -63,6 +64,7 @@ const ChapterIdPage = async ({ params }: Props) => {
                     <h2 className="text-xl">Customize your chapter</h2>
                 </div>
                 <ChapterTitleForm initialData={chapter} courseId={params.courseId} />
+                <ChapterDescriptionForm  initialData={chapter} courseId={params.courseId} />
             </div>
         </div>
         <div className="space-y-4">
