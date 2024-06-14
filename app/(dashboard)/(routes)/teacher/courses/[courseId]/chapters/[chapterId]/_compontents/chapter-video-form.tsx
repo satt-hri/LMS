@@ -26,7 +26,7 @@ const ChapterVideoForm = ({ initialData, courseId }: Props) => {
   const router = useRouter();
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      debugger;
+  
       await axios.patch(
         `/api/courses/${courseId}/chapters/${initialData.id}`,
         values
@@ -82,7 +82,7 @@ const ChapterVideoForm = ({ initialData, courseId }: Props) => {
             <Video className="w-10 h-10 text-slate-500" />
           </div>
         ) : (
-          <div className=" relative aspect-video mt-2">
+          <div className=" relative aspect-video  mt-2">
             <MuxPlayer playbackId={initialData.muxData?.playbackId || ""} />
           </div>
         ))}
