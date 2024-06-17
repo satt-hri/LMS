@@ -15,6 +15,8 @@ import PriceForm from "./_compontents/price-form";
 import AttachmentForm from "./_compontents/attachment-form";
 import { auth } from "@clerk/nextjs";
 import ChapterForm from "./_compontents/chapter-form";
+import Bannder from "@/components/banner";
+import Action from "./_compontents/action";
 
 const CouresIdPage = async ({ params }: { params: { courseId: string } }) => {
   const { userId } = auth();
@@ -57,14 +59,21 @@ const CouresIdPage = async ({ params }: { params: { courseId: string } }) => {
     course.description,
     course.imageUrl,
     course.price,
-    course.categoryId
+    course.categoryId,
+    course.chapters.some(chapter => chapter.isPublished)
   ]
 
   const totalFields = requiredFields.length;
   const completedFileds = requiredFields.filter(Boolean).length
   const complettionText = `(${completedFileds}/${totalFields})`
 
+  const isComplete = requiredFields.every(Boolean);
+
   return (
+    <>
+    {!course.isPublished && (
+      <Bannder label="This course is unpublished. It will not be visible by student" />
+    )}
     <div className="p-6">
       <div className="flex items-center justify-between">
         <div className="flex flex-col gap-y-2">
@@ -73,6 +82,7 @@ const CouresIdPage = async ({ params }: { params: { courseId: string } }) => {
             Complete all fields {complettionText}
           </span>
         </div>
+        <Action disabled={!isComplete} courseId={params.courseId} isPublished={course.isPublished} />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
         <div>
@@ -117,6 +127,7 @@ const CouresIdPage = async ({ params }: { params: { courseId: string } }) => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

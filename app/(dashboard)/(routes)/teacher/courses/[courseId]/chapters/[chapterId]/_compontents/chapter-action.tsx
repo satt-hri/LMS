@@ -40,14 +40,17 @@ const ChapterAction = ({
     try {
       setIsLoading(true);
       if (isPublished) {
-        await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}/unpublish`);
+        await axios.patch(
+          `/api/courses/${courseId}/chapters/${chapterId}/unpublish`
+        );
         toast.success("Chapter unpubished");
       } else {
-        await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}/publish`);
+        await axios.patch(
+          `/api/courses/${courseId}/chapters/${chapterId}/publish`
+        );
         toast.success("Chapter pubished");
       }
-     
-     
+
       router.refresh();
       //router.push(`/teacher/courses/${courseId}`);
     } catch (error) {
@@ -58,7 +61,12 @@ const ChapterAction = ({
   };
   return (
     <div className="flex items-center gap-x-2">
-      <Button disabled={disabled || isLoading} variant={"outline"} size={"sm"} onClick={onTogglePublish}>
+      <Button
+        disabled={disabled || isLoading}
+        variant={"outline"}
+        size={"sm"}
+        onClick={onTogglePublish}
+      >
         {isPublished ? "Unpublish" : "Publish"}
       </Button>
       <ConfirmModal onConfirm={onDelete}>
