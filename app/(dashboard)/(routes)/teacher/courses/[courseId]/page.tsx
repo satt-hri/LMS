@@ -18,6 +18,9 @@ import ChapterForm from "./_compontents/chapter-form";
 import Bannder from "@/components/banner";
 import Action from "./_compontents/action";
 
+
+
+
 const CouresIdPage = async ({ params }: { params: { courseId: string } }) => {
   const { userId } = auth();
   if (!userId) {
@@ -69,10 +72,12 @@ const CouresIdPage = async ({ params }: { params: { courseId: string } }) => {
 
   const isComplete = requiredFields.every(Boolean);
 
+
+  
   return (
     <>
     {!course.isPublished && (
-      <Bannder label="This course is unpublished. It will not be visible by student" />
+      <Bannder label="This course is unpublished. It will not be visible to the student" />
     )}
     <div className="p-6">
       <div className="flex items-center justify-between">

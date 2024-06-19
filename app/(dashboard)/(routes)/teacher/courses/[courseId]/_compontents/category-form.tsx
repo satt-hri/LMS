@@ -87,7 +87,7 @@ const CategoryForm = ({
             !initialData.categoryId && "text-slate-500 italic"
           )}
         >
-          {selectOption[0].label || "No category"}
+          {selectOption[0]?.label || "No category"}
         </p>
       )}
       {isEditing && (

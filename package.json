@@ -34,6 +34,7 @@
     "lucide-react": "^0.364.0",
     "next": "13.4.12",
     "react": "18.2.0",
+    "react-confetti": "^6.1.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.51.2",
     "react-hot-toast": "^2.4.1",
@@ -42,7 +43,8 @@
     "tailwindcss-animate": "^1.0.7",
     "typescript": "5.4.3",
     "uploadthing": "^6.7.0",
-    "zod": "^3.22.4"
+    "zod": "^3.22.4",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.19",
