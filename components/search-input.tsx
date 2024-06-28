@@ -15,6 +15,7 @@ const SearchInput = () => {
   const pathname = usePathname();
 
   const currentCategoryId = searchParams.get("categoryId");
+
   useEffect(() => {
     const url = qs.stringifyUrl(
       {
@@ -28,13 +29,15 @@ const SearchInput = () => {
     );
 
     router.push(url);
-  }, [debouncedValue, currentCategoryId,pathname,router]);
+  }, [debouncedValue,pathname,router]);
+  //视屏中 currentCategoryId 也作为依赖项，但是会导致问题，删除了就没问题了。
 
   return (
     <div className="relative">
       <Search className="w-4 h-4 absolute top-3 left-3 text-slate-600" />
       <Input
         onChange={(e) => setValue(e.target.value)}
+        value={value}
         className="w-full md:w-[300px] pl-9 rounded-full bg-slate-100 focus-visible:ring-slate-200 "
         placeholder="Search for a course"
       />
