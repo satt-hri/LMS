@@ -106,7 +106,7 @@ model UserProgress{
   updatedAt DateTime @updatedAt 
 
   @@index([chapterId])
-  @@unique([id,chapterId])
+  @@unique([userId,chapterId])
 }
 
 model Purchase{
@@ -119,6 +119,7 @@ model Purchase{
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  @@unique([userId,courseId])
   @@index([courseId])
 }
 
