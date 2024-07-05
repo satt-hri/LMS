@@ -12,7 +12,7 @@ const CourseMobileSiderbar = ({ course, progressCount }: Props) => {
   return (
     <Sheet>
       <SheetTrigger className="md:hidden pr-4 hover:opacity-75">
-        <Menu  />
+        <Menu />
       </SheetTrigger>
       <SheetContent className="p-0 bg-white w-72" side={"left"}>
         <CouseSidebar course={course} progressCount={progressCount} />
