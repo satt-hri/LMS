@@ -30,6 +30,7 @@ export const CourseCard = ({
             src={imageUrl}
             alt={title}
             fill
+            sizes=""
             className="object-cover "
           ></Image>
         </div>

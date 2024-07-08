@@ -1,190 +1,180 @@
-/*
- Navicat MySQL Data Transfer
+-- --------------------------------------------------------
+-- ホスト:                          127.0.0.1
+-- サーバーのバージョン:                   8.0.34 - MySQL Community Server - GPL
+-- サーバー OS:                      Win64
+-- HeidiSQL バージョン:               12.7.0.6850
+-- --------------------------------------------------------
 
- Source Server         : dev5p.in.satt.jp
- Source Server Type    : MySQL
- Source Server Version : 80023 (8.0.23)
- Source Host           : dev5p.in.satt.jp:3306
- Source Schema         : LMS
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
- Target Server Type    : MySQL
- Target Server Version : 80023 (8.0.23)
- File Encoding         : 65001
 
- Date: 13/06/2024 18:57:28
-*/
+-- lms のデータベース構造をダンプしています
+CREATE DATABASE IF NOT EXISTS `lms` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `lms`;
 
-SET NAMES utf8mb4;
-SET FOREIGN_KEY_CHECKS = 0;
-
--- ----------------------------
--- Table structure for Attachment
--- ----------------------------
-DROP TABLE IF EXISTS `Attachment`;
-CREATE TABLE `Attachment`  (
-  `id` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `url` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `courseId` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+--  テーブル lms.attachment の構造をダンプしています
+CREATE TABLE IF NOT EXISTS `attachment` (
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `courseId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `Attachment_courseId_idx`(`courseId` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+  PRIMARY KEY (`id`),
+  KEY `Attachment_courseId_idx` (`courseId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ----------------------------
--- Records of Attachment
--- ----------------------------
-INSERT INTO `Attachment` VALUES ('02a62d53-9ea5-4ba7-81f1-3717544ffdcb', '9ff65430-cecb-49c2-8e69-2292e4911b2b-i7ebj.jpg', 'https://utfs.io/f/9ff65430-cecb-49c2-8e69-2292e4911b2b-i7ebj.jpg', '9c727b4f-e9bc-408a-b75c-e273c34787f3', '2024-04-17 01:48:24.287', '2024-04-17 01:48:24.287');
-INSERT INTO `Attachment` VALUES ('2db7f419-1002-464a-bfe7-1e45ea312d45', 'f159a2a4-a59f-4061-b978-cadea0e5b024-76cpux.jpg', 'https://utfs.io/f/f159a2a4-a59f-4061-b978-cadea0e5b024-76cpux.jpg', '9c727b4f-e9bc-408a-b75c-e273c34787f3', '2024-04-17 01:48:08.043', '2024-04-17 01:48:08.043');
+-- テーブル lms.attachment: ~2 rows (約) のデータをダンプしています
+INSERT INTO `attachment` (`id`, `name`, `url`, `courseId`, `createdAt`, `updatedAt`) VALUES
+	('75343740-f65b-4c56-8e0c-5d36cf1c9328', '35ca6dd1-f770-41ff-b3e9-fcfa9288fafd-gcfvu2.jpg', 'https://utfs.io/f/35ca6dd1-f770-41ff-b3e9-fcfa9288fafd-gcfvu2.jpg', '02b4c8f5-ce3c-40f5-b9d3-c4ff6ee32bfe', '2024-07-08 10:06:14.261', '2024-07-08 10:06:14.261'),
+	('f99805c5-52fd-45d5-b3ed-0747b5457fed', '52df782a-f8ce-4b9e-bca8-39366579a358-gcfvu2.jpg', 'https://utfs.io/f/52df782a-f8ce-4b9e-bca8-39366579a358-gcfvu2.jpg', '02b4c8f5-ce3c-40f5-b9d3-c4ff6ee32bfe', '2024-07-08 10:05:57.617', '2024-07-08 10:05:57.617');
 
--- ----------------------------
--- Table structure for Category
--- ----------------------------
-DROP TABLE IF EXISTS `Category`;
-CREATE TABLE `Category`  (
-  `id` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+--  テーブル lms.category の構造をダンプしています
+CREATE TABLE IF NOT EXISTS `category` (
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ----------------------------
--- Records of Category
--- ----------------------------
-INSERT INTO `Category` VALUES ('07c43b90-fe80-4a82-bbfd-813526dc4d76', 'Fitness');
-INSERT INTO `Category` VALUES ('22c59bf2-b1d6-4b0b-bc73-1fc0537d0ca7', 'Photography');
-INSERT INTO `Category` VALUES ('295f4ef7-6271-43c8-a133-ef0556b3fea5', 'Accounting');
-INSERT INTO `Category` VALUES ('43610b4e-7cad-4e34-93bc-5738e6fc6b56', 'Music');
-INSERT INTO `Category` VALUES ('52ab9bc9-07fa-4530-a66e-c671e4386964', 'Computer Science');
-INSERT INTO `Category` VALUES ('b472de0a-901d-42db-813a-56878fee2719', 'Engineering');
-INSERT INTO `Category` VALUES ('e8d74fce-f7f4-4cfd-a76e-d91cbc298edd', 'Filming');
+-- テーブル lms.category: ~7 rows (約) のデータをダンプしています
+INSERT INTO `category` (`id`, `name`) VALUES
+	('45a45189-564a-4b7c-8568-cb97f2109963', 'Fitness'),
+	('af5ceff4-a5bc-4afd-ad1c-f0dbf710b618', 'Accounting'),
+	('b39c03de-4e95-4608-b422-d71e26231b03', 'Filming'),
+	('b71a16e3-59bb-4c1b-860d-216bec8e58a4', 'Engineering'),
+	('b7f405a7-8ff9-406b-8c9b-94d15f9aec8c', 'Photography'),
+	('cdcef534-d7f9-40c7-ae36-459e077a6ff8', 'Computer Science'),
+	('e3177765-5fb2-4539-9707-f54cdd6e1e47', 'Music');
 
--- ----------------------------
--- Table structure for Chapter
--- ----------------------------
-DROP TABLE IF EXISTS `Chapter`;
-CREATE TABLE `Chapter`  (
-  `id` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `title` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
-  `videoUrl` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+--  テーブル lms.chapter の構造をダンプしています
+CREATE TABLE IF NOT EXISTS `chapter` (
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `videoUrl` text COLLATE utf8mb4_unicode_ci,
   `position` int NOT NULL,
-  `isPublished` tinyint(1) NOT NULL DEFAULT 0,
-  `isFree` tinyint(1) NOT NULL DEFAULT 0,
-  `courseId` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `isPublished` tinyint(1) NOT NULL DEFAULT '0',
+  `isFree` tinyint(1) NOT NULL DEFAULT '0',
+  `courseId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `Chapter_courseId_idx`(`courseId` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+  PRIMARY KEY (`id`),
+  KEY `Chapter_courseId_idx` (`courseId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ----------------------------
--- Records of Chapter
--- ----------------------------
-INSERT INTO `Chapter` VALUES ('16e9966f-392b-4e3f-a3b4-51b08d4e5cc9', 'chapter3', NULL, NULL, 2, 0, 0, '9c727b4f-e9bc-408a-b75c-e273c34787f3', '2024-06-11 05:53:54.091', '2024-06-11 09:12:29.220');
-INSERT INTO `Chapter` VALUES ('55b133eb-2d1c-4606-a2b0-750559677b63', 'chapter2', NULL, NULL, 1, 0, 0, '9c727b4f-e9bc-408a-b75c-e273c34787f3', '2024-06-11 00:34:32.751', '2024-06-11 09:10:33.550');
-INSERT INTO `Chapter` VALUES ('71577265-745b-4df5-aa5d-f48dde3a76c5', 'chapter4', NULL, NULL, 0, 0, 0, '9c727b4f-e9bc-408a-b75c-e273c34787f3', '2024-06-11 07:18:22.482', '2024-06-11 09:10:33.543');
-INSERT INTO `Chapter` VALUES ('ebf2acbd-d732-4cd9-959d-069487021d12', 'chapter1', '<ol><li>vafdfad</li><li>dsfadfsad</li><li>4564</li></ol><p><br></p>', 'https://utfs.io/f/054f1ba7-ad79-4523-bae9-e5e2df5e53ba-paiafe.mp4', 3, 0, 0, '9c727b4f-e9bc-408a-b75c-e273c34787f3', '2024-04-17 10:28:11.621', '2024-06-13 09:54:42.275');
+-- テーブル lms.chapter: ~4 rows (約) のデータをダンプしています
+INSERT INTO `chapter` (`id`, `title`, `description`, `videoUrl`, `position`, `isPublished`, `isFree`, `courseId`, `createdAt`, `updatedAt`) VALUES
+	('4468075d-d4a2-4d10-a5b5-c3007f3828e3', 'chapter1', '<p>aaaa</p>', 'https://utfs.io/f/51e07b19-491d-4741-a9af-1630bd49f434-p121dy.mp4', 1, 1, 1, '02b4c8f5-ce3c-40f5-b9d3-c4ff6ee32bfe', '2024-07-08 10:05:12.844', '2024-07-08 10:07:09.537'),
+	('997e87be-2cb0-4ca9-a633-52fb07a1101f', 'chapter4', '<p>adsc</p>', 'https://utfs.io/f/543f48d4-8906-4d99-a9fc-039db955752e-n08s5s.mp4', 4, 1, 0, '02b4c8f5-ce3c-40f5-b9d3-c4ff6ee32bfe', '2024-07-08 10:05:29.200', '2024-07-08 10:19:32.986'),
+	('a4459ba3-db22-4bfb-aee4-69f53204a478', 'chapter2', '<p>bbbcdxdd</p>', 'https://utfs.io/f/80a2eb0e-dff8-4e4d-ba4e-ad3af1068afa-p121dy.mp4', 2, 1, 0, '02b4c8f5-ce3c-40f5-b9d3-c4ff6ee32bfe', '2024-07-08 10:05:20.164', '2024-07-08 10:15:07.926'),
+	('dcea1bee-0eef-4350-a5f0-83c658910af2', 'chapter3', '<p>chapter3</p>', 'https://utfs.io/f/33fb8a57-0304-4f2e-ae71-2bcc4ed943ed-p121dy.mp4', 3, 1, 0, '02b4c8f5-ce3c-40f5-b9d3-c4ff6ee32bfe', '2024-07-08 10:05:24.096', '2024-07-08 10:18:10.927');
 
--- ----------------------------
--- Table structure for Course
--- ----------------------------
-DROP TABLE IF EXISTS `Course`;
-CREATE TABLE `Course`  (
-  `id` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `userId` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `title` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
-  `imageUrl` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
-  `price` double NULL DEFAULT NULL,
-  `isPublished` tinyint(1) NOT NULL DEFAULT 0,
-  `categoryId` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+--  テーブル lms.course の構造をダンプしています
+CREATE TABLE IF NOT EXISTS `course` (
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `userId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `imageUrl` text COLLATE utf8mb4_unicode_ci,
+  `price` double DEFAULT NULL,
+  `isPublished` tinyint(1) NOT NULL DEFAULT '0',
+  `categoryId` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `Course_categoryId_idx`(`categoryId` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+  PRIMARY KEY (`id`),
+  KEY `Course_categoryId_idx` (`categoryId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ----------------------------
--- Records of Course
--- ----------------------------
-INSERT INTO `Course` VALUES ('9c727b4f-e9bc-408a-b75c-e273c34787f3', 'user_2eZxMqZH3320VoykvpabZ8dpT6f', '78945688', 'bac', 'https://utfs.io/f/ad3ed488-1421-425e-bd75-a42c8b3a15b0-3wb6es.jpg', 123456, 0, 'b472de0a-901d-42db-813a-56878fee2719', '2024-04-05 03:06:23.259', '2024-06-13 02:10:39.843');
-INSERT INTO `Course` VALUES ('ad93407e-b494-4af5-bc31-b141dcd0dece', 'user_2eZxMqZH3320VoykvpabZ8dpT6f', 'test', NULL, NULL, NULL, 0, NULL, '2024-04-05 02:49:48.295', '2024-04-05 02:49:48.295');
-INSERT INTO `Course` VALUES ('e428c4c4-7986-4194-8c38-b4aa964c5fac', 'user_2eZxMqZH3320VoykvpabZ8dpT6f', 'test1', NULL, NULL, NULL, 0, NULL, '2024-04-05 03:05:11.055', '2024-04-05 03:05:11.055');
+-- テーブル lms.course: ~1 rows (約) のデータをダンプしています
+INSERT INTO `course` (`id`, `userId`, `title`, `description`, `imageUrl`, `price`, `isPublished`, `categoryId`, `createdAt`, `updatedAt`) VALUES
+	('02b4c8f5-ce3c-40f5-b9d3-c4ff6ee32bfe', 'user_2eZxMqZH3320VoykvpabZ8dpT6f', 'course1', 'first course', 'https://utfs.io/f/d5841a62-8137-4b59-a6d5-8746625b09dc-4o63ls.jpg', 123456, 1, 'b71a16e3-59bb-4c1b-860d-216bec8e58a4', '2024-07-08 10:03:58.027', '2024-07-08 10:07:16.443');
 
--- ----------------------------
--- Table structure for MuxData
--- ----------------------------
-DROP TABLE IF EXISTS `MuxData`;
-CREATE TABLE `MuxData`  (
-  `id` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `assetId` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `playbackId` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `chapterId` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `MuxData_chapterId_key`(`chapterId` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+--  テーブル lms.muxdata の構造をダンプしています
+CREATE TABLE IF NOT EXISTS `muxdata` (
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `assetId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `playbackId` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `chapterId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `MuxData_chapterId_key` (`chapterId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ----------------------------
--- Records of MuxData
--- ----------------------------
-INSERT INTO `MuxData` VALUES ('3c5abc49-a73e-4505-aa3a-d50c2eadfde5', 'kUZxIUklN2x5Dh2fysNv1XrOJ02F01O1lgX7Rn7KA2o02c', 'lV3tzvuK8PRP8qPRLqP01tlgS400sFA71ti2je3L02Ul1A', 'ebf2acbd-d732-4cd9-959d-069487021d12');
+-- テーブル lms.muxdata: ~4 rows (約) のデータをダンプしています
+INSERT INTO `muxdata` (`id`, `assetId`, `playbackId`, `chapterId`) VALUES
+	('7048783a-8994-4601-9dfb-70aed7b45de1', 'AKdD33r5Q8lX02hsuENkqkxBniXfDKDQRzOyKLxIefgQ', '3L8vUWcvLNnSCo39dq013JoP1XjOgMvTxSNBAKMDVmbs', '4468075d-d4a2-4d10-a5b5-c3007f3828e3'),
+	('926df3ef-5394-4574-9bb1-451b4f3635c7', '3twjGJgyPmPFbThlPyDYEhq00J3MYwIQ02hYT4bUwnIuY', 'gSAH2X9901p01W004mbN6bxKPxLKa9oXbRa4NuvHvY1xO00', '997e87be-2cb0-4ca9-a633-52fb07a1101f'),
+	('b30d8714-cd24-4910-96cc-483be56af93e', 'vcdX7gqsYuUBEHIgxeVHgkeSsTFxr5OAFwzxlU7zZv00', 'SCDz6SHGvRSNh1vyuk5Z4tQXejAoRh6Rr69SSaFGnaw', 'a4459ba3-db22-4bfb-aee4-69f53204a478'),
+	('c4656d0e-0739-4444-9869-c3a000281ad7', '5lAOYe9ghnvobvRyEzvCPEdR026kCoBcQ6VCaMJvMezY', 'ijM6Jsqg789cBl6bG5q027TmvIBt1eR6028vi016fhf1qI', 'dcea1bee-0eef-4350-a5f0-83c658910af2');
 
--- ----------------------------
--- Table structure for Purchase
--- ----------------------------
-DROP TABLE IF EXISTS `Purchase`;
-CREATE TABLE `Purchase`  (
-  `id` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `userId` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `courseId` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+--  テーブル lms.purchase の構造をダンプしています
+CREATE TABLE IF NOT EXISTS `purchase` (
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `userId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `courseId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `Purchase_courseId_idx`(`courseId` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `Purchase_userId_courseId_key` (`userId`,`courseId`),
+  KEY `Purchase_courseId_idx` (`courseId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ----------------------------
--- Records of Purchase
--- ----------------------------
+-- テーブル lms.purchase: ~0 rows (約) のデータをダンプしています
 
--- ----------------------------
--- Table structure for StripeCustomer
--- ----------------------------
-DROP TABLE IF EXISTS `StripeCustomer`;
-CREATE TABLE `StripeCustomer`  (
-  `id` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `userId` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `stripeCustomerId` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+--  テーブル lms.stripecustomer の構造をダンプしています
+CREATE TABLE IF NOT EXISTS `stripecustomer` (
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `userId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `stripeCustomerId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `StripeCustomer_userId_key`(`userId` ASC) USING BTREE,
-  UNIQUE INDEX `StripeCustomer_stripeCustomerId_key`(`stripeCustomerId` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `StripeCustomer_userId_key` (`userId`),
+  UNIQUE KEY `StripeCustomer_stripeCustomerId_key` (`stripeCustomerId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ----------------------------
--- Records of StripeCustomer
--- ----------------------------
+-- テーブル lms.stripecustomer: ~0 rows (約) のデータをダンプしています
 
--- ----------------------------
--- Table structure for UserProgress
--- ----------------------------
-DROP TABLE IF EXISTS `UserProgress`;
-CREATE TABLE `UserProgress`  (
-  `id` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `userId` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `chapterId` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `isCompleted` tinyint(1) NOT NULL DEFAULT 0,
+--  テーブル lms.userprogress の構造をダンプしています
+CREATE TABLE IF NOT EXISTS `userprogress` (
+  `id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `userId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `chapterId` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `isCompleted` tinyint(1) NOT NULL DEFAULT '0',
   `createdAt` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updatedAt` datetime(3) NOT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `UserProgress_id_chapterId_key`(`id` ASC, `chapterId` ASC) USING BTREE,
-  INDEX `UserProgress_chapterId_idx`(`chapterId` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UserProgress_userId_chapterId_key` (`userId`,`chapterId`),
+  KEY `UserProgress_chapterId_idx` (`chapterId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ----------------------------
--- Records of UserProgress
--- ----------------------------
+-- テーブル lms.userprogress: ~0 rows (約) のデータをダンプしています
 
-SET FOREIGN_KEY_CHECKS = 1;
+--  テーブル lms._prisma_migrations の構造をダンプしています
+CREATE TABLE IF NOT EXISTS `_prisma_migrations` (
+  `id` varchar(36) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `checksum` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `finished_at` datetime(3) DEFAULT NULL,
+  `migration_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `logs` text COLLATE utf8mb4_unicode_ci,
+  `rolled_back_at` datetime(3) DEFAULT NULL,
+  `started_at` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+  `applied_steps_count` int unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- テーブル lms._prisma_migrations: ~1 rows (約) のデータをダンプしています
+INSERT INTO `_prisma_migrations` (`id`, `checksum`, `finished_at`, `migration_name`, `logs`, `rolled_back_at`, `started_at`, `applied_steps_count`) VALUES
+	('538e637c-dbba-42ca-a386-668c1af45c95', '4eaa619e1a7438721055d95fb0a0c96a38a9ea7d4a04b48326edd685b0b33247', '2024-07-08 09:58:52.672', '20240708095852_', NULL, NULL, '2024-07-08 09:58:52.312', 1);
+
+/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
