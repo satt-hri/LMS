@@ -1,12 +1,8 @@
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
-import Mux from "@mux/mux-node";
 import { utapi } from "../../uploadthing/route";
+import { mux } from "@/lib/mux";
 
-const mux = new Mux({
-  tokenId: process.env.MUX_TOKEN_ID,
-  tokenSecret: process.env.MUX_TOKEN_SECRET,
-});
 
 export async function PATCH(
   req: Request,

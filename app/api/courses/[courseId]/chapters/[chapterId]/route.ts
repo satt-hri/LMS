@@ -1,12 +1,7 @@
 import { db } from "@/lib/db";
+import { mux } from "@/lib/mux";
 import { auth } from "@clerk/nextjs";
 import { NextRequest, NextResponse } from "next/server";
-import Mux from "@mux/mux-node";
-
-const mux = new Mux({
-  tokenId: process.env.MUX_TOKEN_ID,
-  tokenSecret: process.env.MUX_TOKEN_SECRET,
-});
 
 export async function DELETE(
   req: NextRequest,
