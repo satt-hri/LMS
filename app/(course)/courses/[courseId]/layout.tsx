@@ -38,6 +38,7 @@ const CourseLayout = async ({ children, params }: Props) => {
     },
   });
 
+  
   if (!course) {
     return redirect("/");
   }

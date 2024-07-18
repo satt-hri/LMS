@@ -29,7 +29,7 @@ export const CouseSidebar = async ({ course, progressCount }: Props) => {
     <div className="h-full border-r flex flex-col overflow-y-auto shadow-sm ">
       <div className="p-8 flex flex-col border-b">
         <h1 className="font-semibold">{course.title}</h1>
-        {!purchase && <div className="mt-10">
+        {purchase && <div className="mt-10">
           <CourseProgress variant="success" value={progressCount} /></div>}
       </div>
       <div className="w-full flex flex-col">

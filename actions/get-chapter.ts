@@ -47,6 +47,14 @@ export const GetChapter = async ({ userId, courseId, chapterId }: Props) => {
           courseId,
         },
       });
+    }else{
+      //テスト用
+      // await db.purchase.create({
+      //   data: {
+      //     courseId,
+      //     userId,
+      //   },
+      // });
     }
 
     if (purchase || chapter.isFree) {
