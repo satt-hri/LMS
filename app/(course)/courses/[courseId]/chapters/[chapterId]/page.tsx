@@ -45,7 +45,7 @@ const ChapterIdPage = async ({
       {userProgress?.isCompleted && (
         <Bannder
           variant={"success"}
-          label="YOu already completed this chapter"
+          label="You already completed this chapter"
         ></Bannder>
       )}
       {isLocked && (

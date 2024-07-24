@@ -4,13 +4,13 @@ import { currentUser } from "@clerk/nextjs";
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
-export default async function PATCH(
+export  async function PATCH(
   req: NextRequest,
   { params }: { params: { courseId: string } }
 ) {
   try {
     const user = await currentUser();
-    if (!user || user.id || !user.emailAddresses[0].emailAddress) {
+    if (!user || !user.id || !user.emailAddresses[0].emailAddress) {
       return new NextResponse("unauthorized", { status: 401 });
     }
 
