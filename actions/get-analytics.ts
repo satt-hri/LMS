@@ -4,6 +4,11 @@ import { Course, Purchase } from "prisma/prisma-client";
 type PurchaseWithCourse = Purchase & {
   course: Course;
 };
+
+/* 
+
+*/
+
 const groupByCourse = (purchases: PurchaseWithCourse[]) => {
   const grouped: Record<string, number> = {};
 
@@ -18,21 +23,39 @@ const groupByCourse = (purchases: PurchaseWithCourse[]) => {
   return grouped;
 };
 
-const getAnalytics = async (userId: string) => {
-  const purchases = await db.purchase.findMany({
-    where: {
-      userId,
-    },
-    include: {
-      course: true,
-    },
-  });
+export const getAnalytics = async (userId: string) => {
+  try {
+    const purchases = await db.purchase.findMany({
+      where: {
+        userId,
+      },
+      include: {
+        course: true,
+      },
+    });
 
-  const groupedEarnings = groupByCourse(purchases);
-  const data = Object.entries(groupedEarnings).map(([courseTitle, total]) => ({
-    name: courseTitle,
-    total,
-  }));
+    const groupedEarnings = groupByCourse(purchases);
+    const data = Object.entries(groupedEarnings).map(
+      ([courseTitle, total]) => ({
+        name: courseTitle,
+        total,
+      })
+    );
 
-  const totalRevenue = data.reduce((acc,current) => acc + current.total , 0)
+    const totalRevenue = data.reduce((acc, current) => acc + current.total, 0);
+    const totalSales = purchases.length;
+
+    return {
+      data,
+      totalRevenue,
+      totalSales,
+    };
+  } catch (error) {
+    console.log("getAnalytics", error);
+    return {
+      data: [],
+      totalRevenue: 0,
+      totalSales: 0,
+    };
+  }
 };
