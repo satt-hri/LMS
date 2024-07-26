@@ -1,3 +1,4 @@
+"use client";
 import { Course, Category } from "prisma/prisma-client";
 import { CourseCard } from "./course-card";
 
