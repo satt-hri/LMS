@@ -18,7 +18,7 @@ const sizeByVariant = {
   sm: "text-xs",
 };
 
-export const CourseProgress = ({ value, variant, size }: Props) => {
+export const CourseProgress = ({ value = 0, variant, size }: Props) => {
   return (
     <div>
       <Progress value={value} variant={variant} className="h-2" />
