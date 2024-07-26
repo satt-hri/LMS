@@ -28,7 +28,7 @@ export default async function Dashboard() {
           variant="success"
         />
       </div>
-      <CoursesList items={[...completedCourses, ...coursesInProgress]} />
+      {/* <CoursesList items={[...completedCourses, ...coursesInProgress]} /> */}
     </div>
   );
 }
