@@ -9,7 +9,7 @@ type CourseWithProgressWithCategory = Course & {
 };
 
 export const CoursesList = ({
-  items,
+  items
 }: {
   items: CourseWithProgressWithCategory[];
 }) => {
